@@ -84,13 +84,13 @@ The web_urls.csv file's structure is as follows :
 The videos can be downloaded using the script web_url_downloader.py. This can be run as:
 
 ```
-python web_url_downloader <csv_file_path> <final_storage_path>
+python web_url_downloader.py <csv_file_path> <final_storage_path>
 ```
 
 The path for csv and final_storage is prefixed with crowd11 to store the downloaded files in the crowd11 folder. Example to execute the script
 
 ```
-python web_url_downloader web_urls.csv data/
+python web_url_downloader.py web_urls.csv data/
 ```
 
 The path is
