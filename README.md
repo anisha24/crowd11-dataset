@@ -1,12 +1,12 @@
 This documentation presents how to download and process the Crowd-11 dataset.
 
-If you use this dataset, please cite our paper:
+If you use this dataset, please cite the paper:
 ```
 Camille Dupont, Luis Tobias, and Bertrand Luvison. "Crowd-11: A Dataset for Fine Grained Crowd Behaviour Analysis." In  Computer Vision and Pattern Recognition Workshops (CVPRW), 2017.
 ```
 
 
-Since this dataset is a composition of web videos and already existing datasets, we ask you to download and accept licence of each source and dataset. 
+Since this dataset is a composition of web videos and already existing datasets, please download and accept licence of each source and dataset. 
 The construction of the Crowd-11 dataset is composed of two steps:
 
 # Step 1: Retrieve videos of interest from the web and/or pre-existing datasets
@@ -81,8 +81,20 @@ The web_urls.csv file's structure is as follows :
 | $SOURCE NAME       	| URL           	    | OUTPUT_NAME  | TS_MULTIPLIER  |
 | ------------- 	 	|:---------------------:| ------------:| --------------:|
 
+The videos can be downloaded using the script web_url_downloader.py. This can be run as:
 
-We do not provide the script to download them, but many tools exist to do it (pytube, urllib, etc...). 
+```
+python web_url_downloader <csv_file_path> <final_storage_path>
+```
+
+The path for csv and final_storage is prefixed with crowd11 to store the downloaded files in the crowd11 folder. Example to execute the script
+
+```
+python web_url_downloader web_urls.csv data/
+```
+
+The path is
+
 Note: a few videos have a ts_multiplier field. These video are in slow motion and the ts_multiplier is provided to speed them up (cf. SETPTS option in avconv).
 
 The downloaded videos should be stored in their VOI/$SOURCE_NAME folder, which should now have the following structure:  
