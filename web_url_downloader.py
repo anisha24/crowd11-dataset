@@ -21,7 +21,7 @@ def download_and_save_video(url, storage_name, final_storage_path):
 
 def process_csv_file(csv_file_path, storage_path):
     try: 
-        df = pd.read_csv(csv_file_path, sep=';', skiprows=1, header=None, names=['source_name', 'url', 'final_storage_name', 'ts_multiplier'])
+        df = pd.read_csv(csv_file_path, sep=',')
         for index, row in df.iterrows():
             try: 
                 source_name = row['source_name'].strip()
@@ -43,6 +43,6 @@ if __name__ == "__main__":
     parser.add_argument("csv_file_path", help="CSV file containing source_name, url, final_storage_name, and optional ts_multiplier columns prefixed with crowd11/")
     parser.add_argument("final_storage_path", help="Directory where the videos will be saved prefixed with crowd11/")
     args = parser.parse_args()
-    csv_file_path_parsed = "crowd11/" + str(args.csv_file_path)
-    final_storage_path_parsed = "crowd11/" + str(args.final_storage_path)
+    csv_file_path_parsed = str(args.csv_file_path)
+    final_storage_path_parsed = str(args.final_storage_path)
     process_csv_file(csv_file_path_parsed, final_storage_path_parsed)
