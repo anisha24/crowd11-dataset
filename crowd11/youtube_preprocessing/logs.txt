@@ -1,0 +1,56 @@
+(imagebind) anish_a24@ANISH-DESKTOP:~/IISc/Project/crowd11-dataset/crowd11/youtube-links$ python url_video_downloader.py youtube.csv youtube
+Downloading video: https://youtu.be/DigiWS1YhxI and saving it as: Black_Friday_Crowd_Rushing_into_Urban_Outfitters.mp4 with multiplier: None
+Downloading video: https://youtu.be/WgtE4dKJX0o and saving it as: CEC_Easter_Flashmob_-_Pentagon_Shopping_Centre,_Chatham.mp4 with multiplier: None
+Downloading video: https://youtu.be/wnDQkasEZWA and saving it as: European_football_atmosphere_[HD].mp4 with multiplier: None
+Downloading video: https://youtu.be/tjohodypeNM and saving it as: Mouvement_Ultras_en_France.mp4 with multiplier: None
+Failed to download video: tjohodypeNM is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/i8Uf5uRlQJY and saving it as: ZUMBA_Gimme_Gimme_Gimme_by_Beenie_Man_@_JOHNSONCHYE.mp4 with multiplier: None
+Downloading video: https://youtu.be/U_l7h7ns7xs and saving it as: HAKIM_-_balada_boa_Tche_tche_rere.mp4 with multiplier: None
+Downloading video: https://youtu.be/8a90BAwsvlA and saving it as: American_Beauty_Dance_Scene_HD.mp4 with multiplier: None
+Downloading video: https://youtu.be/BlRvE9dKWQc and saving it as: High_School_Musical_Were_All_In_This_Together.mp4 with multiplier: None
+Downloading video: https://youtu.be/wHGqp8lz36c and saving it as: J.K._Rowling_Speaks_at_Harvard_Commencement.mp4 with multiplier: None
+Downloading video: https://youtu.be/0UEbEvObgKo and saving it as: 2013_Inauguration_Ceremony.mp4 with multiplier: None
+Downloading video: https://youtu.be/t3OrcQ18JtY and saving it as: Full_Nelson_Mandela_Inauguration_on_10th_of_May_1994.mp4 with multiplier: None
+Downloading video: https://youtu.be/DPDBw-tPhCM and saving it as: NJTV_Special__2014_Governor_s_Inauguration.mp4 with multiplier: None
+Downloading video: https://youtu.be/E9FNg-sVOfM and saving it as: TOLOnews_29_September_2014___Presidential_Inauguration_Ceremony.mp4 with multiplier: None
+Downloading video: https://youtu.be/IX4-_qcUkM8 and saving it as: Taraweeh_2012_-_Nuit_5_-_BOUSSENNA_Abdelmonaim.mp4 with multiplier: None
+Downloading video: https://youtu.be/fcxHEpzI2yc and saving it as: Running_of_the_Bulls_Bull_Run_Video_July_8_2013.mp4 with multiplier: None
+Downloading video: https://youtu.be/DENCBZF0wd8 and saving it as: the_pianist_Genocide.mp4 with multiplier: None
+Downloading video: https://youtu.be/_6Jkfx871QA and saving it as: Hail_Holy_Queen_-_Escolania_Maria_Auxiliadora.mp4 with multiplier: None
+Downloading video: https://youtu.be/t244-zEENSs and saving it as: Riot_police_attack_peaceful_protesters_at_G20_Climate_Camp.mp4 with multiplier: None
+Failed to download video: t244-zEENSs is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/H75ZwvUbyWQ and saving it as: NYPD_Crowd_Behavior_Training_Video.mp4 with multiplier: None
+Downloading video: https://youtu.be/OxYDoTRwg_Y and saving it as: Brawl_Outside_Springfield_MO_Nightclub.mp4 with multiplier: None
+Failed to download video: OxYDoTRwg_Y is unavailable
+Downloading video: https://youtu.be/zAbYryhshWI and saving it as: Brawl_Inside_Springfield_MO_Nightclub.mp4 with multiplier: None
+Failed to download video: zAbYryhshWI is unavailable
+Downloading video: https://youtu.be/6obpe4kqV_4 and saving it as: youtube-brazil-football-riot.mp4 with multiplier: None
+Failed to download video: 6obpe4kqV_4 is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/_X_Ucwlb-O4 and saving it as: youtube-crowd-control-footage-of-turkish-cops-in-Taksim-Square-using-tear-gas-oust-protesters.mp4 with multiplier: None
+Failed to download video: _X_Ucwlb-O4 is unavailable
+Downloading video: https://youtu.be/rhrwawlnbX4 and saving it as: youtube-EKU-and-UK-football-players-fight-richmond-bar-brawl.mp4 with multiplier: None
+Failed to download video: rhrwawlnbX4 is age restricted, and can't be accessed without logging in.
+Downloading video: NOT_FOUND and saving it as: youtube-Ferguson-shooter-caught-on-store-surveillance-St-Louis-Police.mp4 with multiplier: None
+Failed to download video: regex_search: could not find match for (?:v=|\/)([0-9A-Za-z_-]{11}).*
+Downloading video: https://youtu.be/6rZyDTnE0_M and saving it as: youtube-fight-in-crowd-at-robbie-williams-concert-Live-at-Wembley-30th-June-2013.mp4 with multiplier: None
+Failed to download video: 6rZyDTnE0_M is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/-mnYApXGvq8 and saving it as: youtube-fire-extinguisher-causes-panic-at-IFSEC-West-Africa-2013.mp4 with multiplier: None
+Failed to download video: -mnYApXGvq8 is a private video
+Downloading video: https://youtu.be/BHyrf1llJWs and saving it as: youtube-grocery-customers-panic-at-gas-blast.mp4 with multiplier: None
+Downloading video: https://youtu.be/FfZtmFdMyaA and saving it as: youtube-inside-footage-brussels-airport-terrorist-attack-explosion.mp4 with multiplier: None
+Failed to download video: FfZtmFdMyaA is unavailable
+Downloading video: https://youtu.be/uREJILOby-c and saving it as: youtube-korean-police-rio-control.mp4 with multiplier: None
+Failed to download video: uREJILOby-c is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/cgm5nEdnuhE and saving it as: youtube-times-square-crowd-footage.mp4 with multiplier: 0.7
+sh: 1: ffmpeg: not found
+Downloading video: https://youtu.be/C199SPCBusI and saving it as: Robbie_williams_BIG_PUNCH_UP_take_the_crown_wembley_stadium_30_06_13.mp4 with multiplier: None
+Failed to download video: C199SPCBusI is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/ncSkQ4nOmiQ and saving it as: Most_brutal_Wall_of_Death_at_a_Metal_Festival_ever_1080p_HD.mp4 with multiplier: None
+Failed to download video: ncSkQ4nOmiQ is age restricted, and can't be accessed without logging in.
+Downloading video: https://youtu.be/ySPlanMCmM4 and saving it as: Wall_of_Death_EXTREME_Callejon_With_Full_Force_2014.mp4 with multiplier: None
+Downloading video: https://youtu.be/_Z_CIMRZhTs and saving it as: Robbie_Williams_Brawl_Wembley_Stadium.mp4 with multiplier: None
+Downloading video: https://youtu.be/GBt0O_2ZrG0 and saving it as: Arsenal_vs_Man_City_Fans_FICHTING_Outside_WEMBLEY_STADIUM_Football_Fights.mp4 with multiplier: None
+Failed to download video: GBt0O_2ZrG0 is a private video
+Downloading video: https://youtu.be/P3Nh5T61mQU and saving it as: Spain_Bull_Run_2016_Day_4_Pamplona.mp4 with multiplier: None
+Downloading video: https://youtu.be/8Pz6idZSS4k and saving it as: Running_of_the_Bulls_2012.mp4 with multiplier: None
+Videos downloaded and saved successfully!
