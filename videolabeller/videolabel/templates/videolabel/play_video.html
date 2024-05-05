@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ video_name }}</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f0f0f0;
+            }
+            header {
+                background-color: #333;
+                color: #fff;
+                padding: 10px;
+                text-align: center;
+            }
+            .container {
+                max-width: 800px;
+                margin: 20px auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                position: relative;
+            }
+            h2 {
+                color: #333;
+                margin-top: 0;
+            }
+            video {
+                width: 100%;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            form {
+                margin-bottom: 20px;
+            }
+            label {
+                font-weight: bold;
+            }
+            input[type="text"] {
+                width: calc(100% - 100px);
+                padding: 8px;
+                margin: 5px 0;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            button[type="submit"] {
+                padding: 8px 15px;
+                background-color: #333;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button[type="submit"]:hover {
+                background-color: #555;
+            }
+            ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            li {
+                margin-bottom: 5px;
+            }
+            a {
+                color: #333;
+                text-decoration: none;
+                margin-right: 10px;
+            }
+            .prev, .next {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #333;
+                font-size: 24px;
+                text-decoration: none;
+            }
+            .prev {
+                left: -30px;
+            }
+            .next {
+                right: -30px;
+            }
+            .arrow {
+                font-size: 32px;
+                color: #333;
+                text-decoration: none;
+            }
+            .arrow:hover {
+                color: #555;
+            }
+            .home-button {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                font-size: 18px;
+                color: #333;
+                text-decoration: none;
+            }
+            .home-button:hover {
+                color: #555;
+                cursor: pointer;
+            }
+            .labels-container {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 400px;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-left: 1px solid #ccc;
+                height: 100%;
+                overflow-y: auto;
+            }
+            .label-item {
+                margin-bottom: 10px;
+                cursor: pointer;
+                padding: 5px 10px;
+                background-color: #ddd;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+            .label-item:hover {
+                background-color: #b0c4de;
+            }
+            .success-message {
+                color: #008000;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+            #filter-labels {
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                padding: 10px;
+                margin: 5px 0;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                transition: border-color 0.3s ease;
+                background-color: #f9f9f9;
+                width: 100%;
+                max-width: 300px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: normal;
+                cursor: text;
+                flex:1
+            }
+
+            #filter-labels::placeholder {
+                color: #999;
+                font-style: italic;
+            }
+
+            #filter-labels:focus {
+                border-color: #66afe9;
+                outline: none;
+            }
+            #filter-container {
+                display: flex;
+                align-items: center;
+            }
+            #clear-button {
+                background-color: #ccc;
+                border: 1px solid #ccc;
+                border-radius: 20%;
+                padding: 10px;
+                margin-left: 5px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #clear-button:hover {
+                background-color: #ff3b3b;
+            }
+
+        </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+    <body>
+        <button class="home-button" onclick="location.href='/'">
+            <i class="fas fa-home"></i>
+        </button>
+        <div class="container">
+            {% if prev_video %}
+                <a  class="arrow prev" href="{% url 'play_video' prev_video.video_name %}">&#10094;</a>
+            {% endif %}
+            <h2>{{ video_name }}</h2>
+            <video controls>
+                <source src="{{ video_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            {% if next_video %}
+                <a class="arrow next" href="{% url 'play_video' next_video.video_name %}">&#10095;</a>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                <label for="video_label">Video Label:</label>
+                <input type="text" id="video_label" name="video_label" value="{{ current_label }}">
+                <button type="submit">Submit</button>
+            </form>
+            {% if success_message %}
+                <p  class="success-message">{{ success_message }}</p>
+            {% endif %}
+            <div class="labels-container">
+                <h3>Labels</h3>
+                <div id="filter-container">
+                    <input type="text" id="filter-labels" placeholder="Filter labels...">
+                    <button id="clear-button">&times;</button>
+                </div>
+                <ul>
+                    {% for label in video_labels %}
+                        {% if label %}
+                            <li class="label-item">{{ label }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <script>
+            // document.addEventListener("DOMContentLoaded", function() {
+            //     const labelItems = document.querySelectorAll(".label-item");
+            //     const inputField = document.getElementById("video_label");
+    
+            //     labelItems.forEach(function(labelItem) {
+            //         labelItem.addEventListener("click", function() {
+            //             const labelText = labelItem.textContent.trim();
+            //             if (inputField.value.trim() === "") {
+            //                 inputField.value = labelText;
+            //             } else {
+            //                 inputField.value += "," + labelText;
+            //             }
+            //         });
+            //     });
+            // });
+            // document.addEventListener("DOMContentLoaded", function() {
+            //     const labelItems = document.querySelectorAll(".label-item");
+            //     const inputField = document.getElementById("video_label");
+            //     const filterInput = document.getElementById("filter-labels");
+    
+            //     labelItems.forEach(function(labelItem) {
+            //         labelItem.addEventListener("click", function() {
+            //             const labelText = labelItem.textContent.trim();
+            //             if (inputField.value.trim() === "") {
+            //                 inputField.value = labelText;
+            //             } else {
+            //                 inputField.value += "," + labelText;
+            //             }
+            //         });
+            //     });
+            //     filterInput.addEventListener("input", function() {
+            //         const filterValue = filterInput.value.toLowerCase();
+            //         labelItems.forEach(function(labelItem) {
+            //             const labelText = labelItem.textContent.trim().toLowerCase();
+            //             if (labelText.includes(filterValue)) {
+            //                 labelItem.style.display = "block";
+            //             } else {
+            //                 labelItem.style.display = "none";
+            //             }
+            //         });
+            //     });
+            // });
+            // document.addEventListener("DOMContentLoaded", function() {
+            //     const filterInput = document.getElementById("filter-labels");
+            //     const clearButton = document.getElementById("clear-button");
+            //     const labelItems = document.querySelectorAll(".label-item");
+
+            //     clearButton.addEventListener("click", function() {
+            //         filterInput.value = "";
+            //         filterLabels("");
+            //     });
+
+            //     function filterLabels(filterText) {
+            //         labelItems.forEach(function(labelItem) {
+            //             const labelText = labelItem.textContent.trim().toLowerCase();
+            //             if (labelText.includes(filterText.toLowerCase())) {
+            //                 labelItem.style.display = "block";
+            //             } else {
+            //                 labelItem.style.display = "none";
+            //             }
+            //         });
+            //     }
+
+            //     filterInput.addEventListener("input", function() {
+            //         const filterValue = filterInput.value;
+            //         filterLabels(filterValue);
+            //     });
+            // });
+            document.addEventListener("DOMContentLoaded", function() {
+                const labelItems = document.querySelectorAll(".label-item");
+                const inputField = document.getElementById("video_label");
+                const filterInput = document.getElementById("filter-labels");
+                const clearButton = document.getElementById("clear-button");
+                function addLabelToInput(labelText) {
+                    if (inputField.value.trim() === "") {
+                        inputField.value = labelText;
+                    } else {
+                        inputField.value += "," + labelText;
+                    }
+                }
+                labelItems.forEach(function(labelItem) {
+                    labelItem.addEventListener("click", function() {
+                        const labelText = labelItem.textContent.trim();
+                        addLabelToInput(labelText);
+                    });
+                });
+                function filterLabels(filterText) {
+                    labelItems.forEach(function(labelItem) {
+                        const labelText = labelItem.textContent.trim().toLowerCase();
+                        if (labelText.includes(filterText.toLowerCase())) {
+                            labelItem.style.display = "block";
+                        } else {
+                            labelItem.style.display = "none";
+                        }
+                    });
+                }
+                filterInput.addEventListener("input", function() {
+                    const filterValue = filterInput.value;
+                    filterLabels(filterValue);
+                });
+                clearButton.addEventListener("click", function() {
+                    filterInput.value = "";
+                    filterLabels("");
+                });
+            });
+        </script>
+    </body>
+</html>

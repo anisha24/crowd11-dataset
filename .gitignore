@@ -2,3 +2,4 @@ crowd11/data/
 crowd11/existing_datasets/
 crowd11/VOI/
 crowd11/Crowd-11/
+*__pycache__*
