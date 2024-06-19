@@ -145,7 +145,7 @@
                 font-size: 14px;
                 font-weight: normal;
                 cursor: text;
-                flex:1
+                flex: 1
             }
 
             #filter-labels::placeholder {
@@ -186,7 +186,7 @@
         </button>
         <div class="container">
             {% if prev_video %}
-                <a  class="arrow prev" href="{% url 'play_video' prev_video.video_name %}">&#10094;</a>
+                <a class="arrow prev" href="{% url 'play_video' prev_video.video_name %}">&#10094;</a>
             {% endif %}
             <h2>{{ video_name }}</h2>
             <video controls>
@@ -203,7 +203,7 @@
                 <button type="submit">Submit</button>
             </form>
             {% if success_message %}
-                <p  class="success-message">{{ success_message }}</p>
+                <p class="success-message">{{ success_message }}</p>
             {% endif %}
             <div class="labels-container">
                 <h3>Labels</h3>
@@ -213,82 +213,15 @@
                 </div>
                 <ul>
                     {% for label in video_labels %}
-                        {% if label %}
-                            <li class="label-item">{{ label }}</li>
+                        {% if label.name %}
+                            <li class="label-item" data-label-id="{{ label.id }}">{{ label.name }}</li>
                         {% endif %}
                     {% endfor %}
                 </ul>
             </div>
         </div>
+    
         <script>
-            // document.addEventListener("DOMContentLoaded", function() {
-            //     const labelItems = document.querySelectorAll(".label-item");
-            //     const inputField = document.getElementById("video_label");
-    
-            //     labelItems.forEach(function(labelItem) {
-            //         labelItem.addEventListener("click", function() {
-            //             const labelText = labelItem.textContent.trim();
-            //             if (inputField.value.trim() === "") {
-            //                 inputField.value = labelText;
-            //             } else {
-            //                 inputField.value += "," + labelText;
-            //             }
-            //         });
-            //     });
-            // });
-            // document.addEventListener("DOMContentLoaded", function() {
-            //     const labelItems = document.querySelectorAll(".label-item");
-            //     const inputField = document.getElementById("video_label");
-            //     const filterInput = document.getElementById("filter-labels");
-    
-            //     labelItems.forEach(function(labelItem) {
-            //         labelItem.addEventListener("click", function() {
-            //             const labelText = labelItem.textContent.trim();
-            //             if (inputField.value.trim() === "") {
-            //                 inputField.value = labelText;
-            //             } else {
-            //                 inputField.value += "," + labelText;
-            //             }
-            //         });
-            //     });
-            //     filterInput.addEventListener("input", function() {
-            //         const filterValue = filterInput.value.toLowerCase();
-            //         labelItems.forEach(function(labelItem) {
-            //             const labelText = labelItem.textContent.trim().toLowerCase();
-            //             if (labelText.includes(filterValue)) {
-            //                 labelItem.style.display = "block";
-            //             } else {
-            //                 labelItem.style.display = "none";
-            //             }
-            //         });
-            //     });
-            // });
-            // document.addEventListener("DOMContentLoaded", function() {
-            //     const filterInput = document.getElementById("filter-labels");
-            //     const clearButton = document.getElementById("clear-button");
-            //     const labelItems = document.querySelectorAll(".label-item");
-
-            //     clearButton.addEventListener("click", function() {
-            //         filterInput.value = "";
-            //         filterLabels("");
-            //     });
-
-            //     function filterLabels(filterText) {
-            //         labelItems.forEach(function(labelItem) {
-            //             const labelText = labelItem.textContent.trim().toLowerCase();
-            //             if (labelText.includes(filterText.toLowerCase())) {
-            //                 labelItem.style.display = "block";
-            //             } else {
-            //                 labelItem.style.display = "none";
-            //             }
-            //         });
-            //     }
-
-            //     filterInput.addEventListener("input", function() {
-            //         const filterValue = filterInput.value;
-            //         filterLabels(filterValue);
-            //     });
-            // });
             document.addEventListener("DOMContentLoaded", function() {
                 const labelItems = document.querySelectorAll(".label-item");
                 const inputField = document.getElementById("video_label");

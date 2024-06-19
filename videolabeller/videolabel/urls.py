@@ -7,5 +7,7 @@ urlpatterns = [
     path('save_videos/', views.save_video_list, name='save_videos'),
     path('download-csv/', views.download_csv, name='download_csv'),
     path('upload-csv/', views.upload_csv, name='upload_csv'),
+    path('export-labels/', views.export_labels, name='export_labels'),
+    path('merge-labels/', views.merge_labels, name='merge_labels')
     # path('add-unique-labels/', views.add_unique_labels, name='add_unique_labels')
 ]

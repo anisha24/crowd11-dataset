@@ -2,17 +2,21 @@ import os
 import csv
 import pandas as pd
 from natsort import natsorted
+from datetime import datetime
+from django.db.models import Q
+from django.utils.timezone import now
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
-from videolabel.models import Video, VideoLabel
-from videolabel.forms import CSVUploadForm
+from videolabel.models import Video, Label
+from videolabel.forms import CSVUploadForm, MergeLabelsForm
 from videolabeller.settings import MEDIA_ROOT
 
 def video_list(request):
-    videos = Video.objects.all()
+    videos = list(Video.objects.all())
+    natsorted_videos = natsorted(videos, key=lambda x: x.video_name)
     context = {
-        'videos': videos
+        'videos': natsorted_videos
     }
     return render(request, 'videolabel/video_list.html', context)
 
@@ -33,25 +37,25 @@ def play_video(request, video_name):
     video_url = f'/media/{video_name}'
     success_message = None
     if request.method == 'POST':
-        video_label = request.POST.get('video_label')
+        label_name = request.POST.get('video_label')
         video = Video.objects.get(video_name=video_name)
-        video.label = video_label
-        video.save()
-        update_csv(video_name, video_label)
-        label, _ = VideoLabel.objects.get_or_create(label=video_label)
+        label, created = Label.objects.get_or_create(name=label_name)
+        label.last_used = now()
         label.save()
+        video.label = label
+        video.save()
+        update_csv(video_name, label_name)
         success_message = "Label saved successfully."
     current_video = get_object_or_404(Video, video_name=video_name)
     prev_video = Video.objects.filter(id__lt=current_video.id).order_by('-id').first()
     next_video = Video.objects.filter(id__gt=current_video.id).order_by('id').first()
-    # video_labels = Video.objects.exclude(label__isnull=True).exclude(label='').values_list('label', flat=True).distinct()
-    video_labels = VideoLabel.objects.all()
+    video_labels = Label.objects.filter(~Q(name=None)).order_by('-last_used')
     context = {
         'video_url': video_url,
         'video_name': video_name,
         'success_message': success_message,
         'current_video': current_video,
-        'current_label': current_video.label,
+        'current_label': current_video.label.name if current_video.label else '',
         'prev_video': prev_video,
         'next_video': next_video,
         'video_labels': video_labels
@@ -69,7 +73,7 @@ def save_video_list(request):
     return HttpResponse("Video list saved successfully.")
 
 def download_csv(request):
-    videos = Video.objects.exclude(label__isnull=True).exclude(label='').values_list('video_name', 'label')
+    videos = Video.objects.exclude(label__isnull=True).values_list('video_name', 'label__name')
     df = pd.DataFrame(list(videos), columns=['Video', 'Label'])
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="video_labels.csv"'
@@ -85,7 +89,8 @@ def upload_csv(request):
             csv_reader = csv.DictReader(decoded_file)
             for row in csv_reader:
                 video_name = row['Video']
-                label = row['Label']
+                label_name = row['Label']
+                label, created = Label.objects.get_or_create(name=label_name)
                 Video.objects.update_or_create(video_name=video_name, defaults={'label': label})
             messages.success(request, 'CSV file uploaded successfully.')
             return redirect('video_list')
@@ -94,7 +99,30 @@ def upload_csv(request):
     return render(request, 'videolabel/upload_csv.html', {'form': form})
 
 def add_unique_labels(request):
-    unique_labels = Video.objects.exclude(label__isnull=True).exclude(label='').values_list('label', flat=True).distinct()
-    for label in unique_labels:
-        VideoLabel.objects.get_or_create(label=label)
-    return render(request, 'add_unique_labels.html', {'message': 'Unique labels added successfully!'})
+    unique_labels = Video.objects.exclude(label__isnull=True).values_list('label__name', flat=True).distinct()
+    for label_name in unique_labels:
+        Label.objects.get_or_create(name=label_name)
+    return render(request, 'videolabel/add_unique_labels.html', {'message': 'Unique labels added successfully!'})
+
+def export_labels(request):
+    labels = Label.objects.filter(name__isnull=False).exclude(name='').values_list('name', flat=True).distinct()
+    response = HttpResponse(content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename="labels.txt"'
+    for label in labels:
+        response.write(f'{label}\n')
+    return response
+
+def merge_labels(request):
+    if request.method == 'POST':
+        labels_to_merge = request.POST.getlist('labels_to_merge')
+        print(labels_to_merge)
+        new_label_name = request.POST.get('new_label')
+        print(new_label_name)
+        new_label, created = Label.objects.get_or_create(name=new_label_name)
+        Video.objects.filter(label__name__in=labels_to_merge).update(label=new_label)
+        # Label.objects.filter(name__in=labels_to_merge).delete()
+        messages.success(request, f'Labels {", ".join(labels_to_merge)} merged into "{new_label_name}".')
+        return redirect('merge_labels')
+    else:
+        form = MergeLabelsForm()
+    return render(request, 'videolabel/merge_labels.html', {'form': form})

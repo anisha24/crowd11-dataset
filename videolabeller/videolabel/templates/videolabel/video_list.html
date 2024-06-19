@@ -55,6 +55,32 @@
             button.upload-button:hover {
                 background-color: #e0a800;
             }
+            button.export-button {
+                background-color: #17a2b8;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                text-transform: uppercase;
+            }
+            button.export-button:hover {
+                background-color: #138496;
+            }
+            button.merge-button {
+                background-color: #e62090;
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                text-transform: uppercase;
+            }
+            button.merge-button:hover {
+                background-color: #a9145c;
+            }
             h2 {
                 color: #333;
             }
@@ -106,14 +132,16 @@
             </form>
             <button class="download-button" onclick="window.location.href='{% url 'download_csv' %}'"><i class="fas fa-file-excel"></i> Download CSV</button>
             <button class="upload-button" onclick="window.location.href='{% url 'upload_csv' %}'"><i class="fas fa-upload"></i> Upload CSV</button>
+            <button class="export-button" onclick="window.location.href='{% url 'export_labels' %}'"><i class="fas fa-file-export"></i> Export Labels</button>
+            <button class="merge-button" onclick="window.location.href='{% url 'merge_labels' %}'"><i class="fas fa-code-branch"></i> Merge Labels</button>
             <h2>Video List</h2>
             <ul>
                 {% for video in videos %}
                 <li>
                     <span class="serial-number">{{ forloop.counter }}</span>
                     <a href="{% url 'play_video' video.video_name %}">{{ video.video_name }}</a>
-                    {% if video.label %}
-                        <span class="label">{{ video.label }}</span>
+                    {% if video.label.name %}
+                        <span class="label">{{ video.label.name }}</span>
                     {% endif %}
                 </li>
                 {% endfor %}

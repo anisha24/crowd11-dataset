@@ -1,4 +1,5 @@
 from django.contrib import admin
-from .models import Video
+from videolabel.models import Video, Label
 
 admin.site.register(Video)
+admin.site.register(Label)
